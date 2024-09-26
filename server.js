@@ -1,16 +1,24 @@
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const port = 3000;
+const mongoose = require('mongoose');
+const helmet = require('helmet'); // Added for security
 const app = express();
 
-app.use(bodyParser.json());
-app.use(express.static('public'));
+// Middleware
+app.use(helmet()); // Security
+app.use(express.json()); // Parses incoming JSON requests
 
-app.get('/', (req, res) => {
-    res.send("Hello");
-});
+// MongoDB connection
+const dbURI = process.env.MONGO_URI;
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-// Using app.listen instead of http.createServer
+// Routes
+app.use('/api', require('./routes/apiRoutes'));
+
+// Start server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`);
 });
