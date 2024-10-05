@@ -1,0 +1,33 @@
+### 1. GET All Contacts
+GET http://localhost:3000/api/data
+Content-Type: application/json
+
+###
+
+### 2. POST Create a New Contact
+POST http://localhost:3000/api/data
+Content-Type: application/json
+
+{
+  "name": "Michael Scott",
+  "email": "michael.scott@dundermifflin.com",
+  "age": 45,
+  "username": "michael_scott"
+}
+
+###
+
+### 3. PUT Update a Contact by ID
+PUT http://localhost:3000/api/data/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Alice Cooper",
+  "email": "alice.cooper@example.com",
+  "age": 30,
+  "username": "alice_cooper_updated"
+}
+
+### 4. DELETE a Contact by ID
+DELETE http://localhost:3000/api/data/{{id}}
+Content-Type: application/json
